@@ -41,6 +41,12 @@ namespace Company.Session03.PL
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            Console.WriteLine();
+
+
+
+
         }
     }
 }
