@@ -25,7 +25,7 @@ namespace Company.Session03.BLL.Repositories
 
         public T? Get(int id)
         {
-            return _context.Set<T>().Find();
+            return _context.Set<T>().Find(id);
 
         }
 
