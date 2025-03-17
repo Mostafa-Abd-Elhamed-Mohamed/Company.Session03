@@ -21,6 +21,22 @@ namespace Company.Session03.PL.Controllers
             var employees= _employeeRepository.GetAll();
 
 
+            // Dictionary : 3 Property 
+            // 1. ViewData : Transfer Extra Information From Controller (Action) To View
+
+            //ViewData["Message"] = "Hello From View Data";
+
+
+
+
+            // 2. ViewBag : Transfer Extra Information From Controller (Action) To View  
+
+            //ViewBag.Message = "Hello From View Bag";
+
+
+
+
+
             return View(employees);
         }
 
@@ -55,6 +71,7 @@ namespace Company.Session03.PL.Controllers
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
+                    TempData["Message"] = "Employee Is Create!!!";
                     return RedirectToAction(nameof(Index));
                 }
             }
