@@ -1,4 +1,5 @@
-﻿using Company.Session03.BLL.Interfaces;
+﻿using AutoMapper;
+using Company.Session03.BLL.Interfaces;
 using Company.Session03.DAL.Models;
 using Company.Session03.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,17 @@ namespace Company.Session03.PL.Controllers
 
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
+        public EmployeeController(
+            IEmployeeRepository employeeRepository,
+            IDepartmentRepository departmentRepository,
+            IMapper mapper
+            )
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -67,21 +74,22 @@ namespace Company.Session03.PL.Controllers
 
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
-                {
-                    
-                    Name = model.Name,
-                    Address=model.Address,
-                    Age=model.Age,
-                    Email=model.Email,
-                    HiringDate=model.HiringDate,
-                    Phone=model.Phone,
-                    Salary=model.Salary,
-                    IsActive=model.IsActive,
-                    IsDeleted=model.IsDeleted,
-                    CreateAt = model.CreateAt,
-                    DepartmentId=model.DepartmentId
-                };
+                //var employee = new Employee()
+                //{
+
+                //    Name = model.Name,
+                //    Address=model.Address,
+                //    Age=model.Age,
+                //    Email=model.Email,
+                //    HiringDate=model.HiringDate,
+                //    Phone=model.Phone,
+                //    Salary=model.Salary,
+                //    IsActive=model.IsActive,
+                //    IsDeleted=model.IsDeleted,
+                //    CreateAt = model.CreateAt,
+                //    DepartmentId=model.DepartmentId
+                //};
+                var employee = _mapper.Map<Employee>(model);
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
