@@ -1,6 +1,8 @@
 using Company.Session03.BLL.Interfaces;
 using Company.Session03.BLL.Repositories;
 using Company.Session03.DAL.Data.Contexts;
+using Company.Session03.PL.Mapping;
+using Company.Session03.PL.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Session03.PL
@@ -20,6 +22,22 @@ namespace Company.Session03.PL
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+
+            //builder.Services.AddScoped();
+            //builder.Services.AddTransient();
+            //builder.Services.AddSingleton();
+
+            builder.Services.AddScoped<IScopedService,ScopedService>();
+            builder.Services.AddTransient<ITarnsentService, TarnsentService>();
+            builder.Services.AddSingleton<ISengeltonService, SengeltonService>();
+
+
+
+
+
 
             var app = builder.Build();
 
