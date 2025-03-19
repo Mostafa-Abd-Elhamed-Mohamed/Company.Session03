@@ -28,5 +28,8 @@ namespace Company.Session03.PL.Dtos
         [DisplayName("Date of Create")]
 
         public DateTime CreateAt { get; set; }
+
+        public int? DepartmentId { get; set; }
+
     }
 }
