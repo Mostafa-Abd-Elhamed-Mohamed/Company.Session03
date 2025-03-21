@@ -31,5 +31,9 @@ namespace Company.Session03.PL.Dtos
 
         public int? DepartmentId { get; set; }
 
+        public string? ImgeName { get; set; }
+
+        public IFormFile Image { get; set; }
+
     }
 }

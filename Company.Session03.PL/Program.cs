@@ -1,3 +1,4 @@
+using Company.Session03.BLL;
 using Company.Session03.BLL.Interfaces;
 using Company.Session03.BLL.Repositories;
 using Company.Session03.DAL.Data.Contexts;
@@ -17,6 +18,7 @@ namespace Company.Session03.PL
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddDbContext<CompanyDbContext>(options =>
             {
@@ -30,9 +32,9 @@ namespace Company.Session03.PL
             //builder.Services.AddTransient();
             //builder.Services.AddSingleton();
 
-            builder.Services.AddScoped<IScopedService,ScopedService>();
-            builder.Services.AddTransient<ITarnsentService, TarnsentService>();
-            builder.Services.AddSingleton<ISengeltonService, SengeltonService>();
+            ////builder.Services.AddScoped<IScopedService,ScopedService>();
+            //builder.Services.AddTransient<ITarnsentService, TarnsentService>();
+            //builder.Services.AddSingleton<ISengeltonService, SengeltonService>();
 
 
 
