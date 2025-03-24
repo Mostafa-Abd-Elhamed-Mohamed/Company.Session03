@@ -2,8 +2,10 @@ using Company.Session03.BLL;
 using Company.Session03.BLL.Interfaces;
 using Company.Session03.BLL.Repositories;
 using Company.Session03.DAL.Data.Contexts;
+using Company.Session03.DAL.Models;
 using Company.Session03.PL.Mapping;
 using Company.Session03.PL.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Session03.PL
@@ -37,11 +39,17 @@ namespace Company.Session03.PL
             //builder.Services.AddSingleton<ISengeltonService, SengeltonService>();
 
 
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                            .AddEntityFrameworkStores<CompanyDbContext>();
 
 
+            builder.Services.ConfigureApplicationCookie( config =>
+                {
+                    config.LoginPath = "/Account/SignIn";
+            
+            });
 
-
-            var app = builder.Build();
+          var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -56,6 +64,7 @@ namespace Company.Session03.PL
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -2,11 +2,14 @@
 using Company.Session03.BLL.Repositories;
 using Company.Session03.DAL.Models;
 using Company.Session03.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Company.Session03.PL.Controllers
 {
+    [Authorize]
+
     public class DepartmentController : Controller
     {
 
