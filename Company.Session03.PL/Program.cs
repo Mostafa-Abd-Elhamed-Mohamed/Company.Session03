@@ -40,7 +40,8 @@ namespace Company.Session03.PL
 
 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
-                            .AddEntityFrameworkStores<CompanyDbContext>();
+                            .AddEntityFrameworkStores<CompanyDbContext>()
+                            .AddDefaultTokenProviders();
 
 
             builder.Services.ConfigureApplicationCookie( config =>

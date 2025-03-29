@@ -100,8 +100,7 @@ namespace Company.Session03.PL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromRoute]int id,Department department)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (id != department.Id) return BadRequest();
                 
                     _unitOfWork.DepartmentRepository.Update(department);
@@ -111,7 +110,7 @@ namespace Company.Session03.PL.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 
-            }
+            
             return View(department);
 
 
@@ -140,8 +139,7 @@ namespace Company.Session03.PL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([FromRoute] int id, Department department)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (id != department.Id) return BadRequest();
 
                 _unitOfWork.DepartmentRepository.Delete(department);
@@ -151,7 +149,7 @@ namespace Company.Session03.PL.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-            }
+            
             return View(department);
 
 
