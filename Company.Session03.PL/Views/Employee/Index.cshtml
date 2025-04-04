@@ -27,7 +27,7 @@
   <div class="container m-4">
   <div class="row" > 
             <div class="col-6">
-                <input placeholder="Search By Name" name="SearchInput" class="form-control" />
+                <input placeholder="Search By Name" id="SearchInput" name="SearchInput" class="form-control" />
 
             </div>
             <div class="col-6">
@@ -109,3 +109,27 @@ else
         </h4>
     </div>
 }
+
+
+<script>
+    $(document).ready(function () {
+        const searchBar = $('#SearchInput');
+        const table = $('table');
+
+        searchBar.on('keyup', function (event) {
+            var searchValue = searchBar.val();
+
+            $.ajax({
+                url: '/Employee/Search',
+                type: 'Get',
+                data: { SearchInput: searchValue },
+                success: function (result) {
+                    table.html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
