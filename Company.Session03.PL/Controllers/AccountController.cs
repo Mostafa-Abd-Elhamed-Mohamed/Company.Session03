@@ -1,11 +1,14 @@
 ﻿using Company.Session03.DAL.Models;
 using Company.Session03.PL.Dtos;
 using Company.Session03.PL.Helper;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Security.Claims;
 
 namespace Company.Session03.PL.Controllers
 {
@@ -229,5 +232,42 @@ namespace Company.Session03.PL.Controllers
             return View();
         }
         #endregion
+
+
+
+        public IActionResult GoogleLogin()
+        {
+            var prop = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleResponse")
+            };
+
+            return Challenge(prop, GoogleDefaults.AuthenticationScheme);
+        }
+
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (result.Succeeded)
+            {
+                // Extract claims from the authenticated user
+                var claims = result.Principal.Identities.FirstOrDefault()?.Claims;
+
+                var claimType = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                var claimValue = claimType?.Value;
+                var claimIssuer = claimType?.Issuer;
+
+                // You can use the claim values as needed here
+
+                // Redirect to the home page or another action
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Handle failure
+            return RedirectToAction("Login", "Account");
+        }
+
+
     }
 }

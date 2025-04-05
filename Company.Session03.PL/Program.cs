@@ -5,6 +5,7 @@ using Company.Session03.DAL.Data.Contexts;
 using Company.Session03.DAL.Models;
 using Company.Session03.PL.Mapping;
 using Company.Session03.PL.Services;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,19 @@ namespace Company.Session03.PL
                     config.LoginPath = "/Account/SignIn";
             
             });
+
+            builder.Services.AddAuthentication(O => {
+
+                O.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                O.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+
+            }).AddGoogle(O=>{
+
+                O.ClientId = builder.Configuration["Authentiction:Google:ClientId"];
+                O.ClientSecret = builder.Configuration["Authentiction:Google:ClientSecret"];
+
+            });
+
 
           var app = builder.Build();
 
